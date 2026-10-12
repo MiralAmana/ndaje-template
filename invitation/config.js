@@ -73,7 +73,7 @@ window.NDAJE = {
   ],
   maxPersonnes: 6,
 
-  // --- Cagnotte (l'argent va DIRECTEMENT au client, jamais à Ndaje) -------
+  // --- Cagnotte (l'argent va DIRECTEMENT au client, jamais à Ndajé) -------
   cagnotte: {
     active: true,
     titulaire: "Aïssatou Diop",
@@ -117,7 +117,7 @@ window.NDAJE = {
     wo: {
       ouvrir: "Ubbi invitation bi",
       merci: "Jërëjëf !",
-      creePar: "Ndaje moo ko defar"
+      creePar: "Ndajé moo ko defar"
     }
   }
 };

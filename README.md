@@ -1,4 +1,4 @@
-# Ndaje — Template d'invitation
+# Ndajé — Template d'invitation
 
 Un template unique, réutilisable pour chaque client. Pour une nouvelle commande, on ne touche qu'à **deux choses** :
 
@@ -20,6 +20,8 @@ ndaje-template/
 └── apps-script/
     └── Code.gs          enregistre les réponses dans un Google Sheet (gratuit)
 ```
+
+Le **site vitrine** de Ndajé (accueil, modèles, formules, contact) est dans un dépôt séparé : `ndaje-site`. Il affiche la démo de ce dépôt (`/invitation/`).
 
 ## Tester tout de suite (2 minutes)
 
@@ -74,7 +76,7 @@ Pour compresser les photos gratuitement : [squoosh.app](https://squoosh.app).
 
 ## Brancher les réponses sur Google Sheets (gratuit, 5 minutes)
 
-1. Créez un Google Sheet vide, nommé par exemple « Ndaje — Aïssatou & Cheikh ».
+1. Créez un Google Sheet vide, nommé par exemple « Ndajé — Aïssatou & Cheikh ».
 2. Menu **Extensions → Apps Script**. Supprimez le contenu et collez tout `apps-script/Code.gs`.
 3. Changez `CLE_TABLEAU_DE_BORD` (ex. `aissatou-cheikh-4821`). Enregistrez.
 4. **Déployer → Nouveau déploiement** → type **Application Web**.

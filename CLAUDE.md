@@ -1,25 +1,25 @@
-# Ndaje — instructions pour Claude Code
+# Ndajé — instructions pour Claude Code
 
-Tu travailles sur **Ndaje** (« le rassemblement » en wolof), un studio sénégalais d'**invitations digitales** pour cérémonies : mariages, baptêmes, anniversaires, événements d'entreprise.
+Tu travailles sur **Ndajé** (« le rassemblement » en wolof), un studio sénégalais d'**invitations digitales** pour cérémonies : mariages, baptêmes, anniversaires, événements d'entreprise.
 Slogan : *Chaque fête mérite son invitation*.
 
 Équipe :
 - **Mimi** : développeuse web/mobile. C'est elle qui te parle. Réponds-lui en **français**, simplement, sans jargon inutile.
 - **Aicha** : infographiste. Elle livre les maquettes, couleurs et visuels, mais ne code pas.
 
-Ndaje démarre **sans budget** : privilégie toujours des solutions gratuites (Vercel, GitHub Pages, Google Sheets + Apps Script, Supabase gratuit). Ne propose jamais un service payant sans le dire clairement et sans proposer une alternative gratuite.
+Ndajé démarre **sans budget** : privilégie toujours des solutions gratuites (Vercel, GitHub Pages, Google Sheets + Apps Script, Supabase gratuit). Ne propose jamais un service payant sans le dire clairement et sans proposer une alternative gratuite.
 
 ---
 
 ## Le produit
 
-Une invitation = **un mini-site par événement**, partagé par un lien WhatsApp. Le client paie **une fois par événement**. Les invités ne paient jamais Ndaje.
+Une invitation = **un mini-site par événement**, partagé par un lien WhatsApp. Le client paie **une fois par événement**. Les invités ne paient jamais Ndajé.
 
 Fonctionnalités :
 - Enveloppe animée d'ouverture, couverture avec noms et photo, compte à rebours
 - Programme en plusieurs étapes avec bouton « Itinéraire » (Google Maps)
 - Confirmation de présence (RSVP) : nom, téléphone, choix (cérémonie / soirée / les deux / absent), nombre de personnes, message
-- Cagnotte Wave / Orange Money : **l'argent va directement au client, jamais à Ndaje**. Ndaje n'encaisse ni ne stocke jamais cet argent.
+- Cagnotte Wave / Orange Money : **l'argent va directement au client, jamais à Ndajé**. Ndajé n'encaisse ni ne stocke jamais cet argent.
 - Galerie photo, musique optionnelle, bascule français / wolof
 - Tableau de bord privé pour les organisateurs (totaux, filtres, export CSV pour le traiteur)
 
