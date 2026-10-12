@@ -106,6 +106,9 @@ La page se met à jour toute seule chaque minute. La clé empêche les inconnus 
 3. Vous obtenez une adresse `ndaje-xxx.vercel.app`. Invitation : `/invitation/`, tableau de bord : `/dashboard/`.
 4. Plus tard, avec le domaine `ndaje.sn` : un sous-domaine par client (`aissatou-cheikh.ndaje.sn`) dans **Settings → Domains**.
 
+5. Le fichier `vercel.json` (à la racine) redirige `/` vers `/invitation/`.
+6. **Aperçu WhatsApp** : dans `invitation/index.html`, remplacez l'adresse des balises `og:url` et `og:image` par l'adresse réelle de l'invitation (WhatsApp exige une adresse complète `https://…`, pas un chemin relatif). À refaire pour chaque client, puis `git push`.
+
 Alternative : GitHub Pages fonctionne aussi.
 
 ---
