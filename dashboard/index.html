@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Tableau de bord — Ndaje</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --fond: #FBF7EF; --surface: #fff; --texte: #1F2A24; --doux: #5E6B63; --ligne: #E9DCC0;
+      --accent: #B8913A; --vert: #1F5B45; --rouge: #A23B2A;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--fond); color: var(--texte); font: 300 15px/1.55 'Jost', system-ui, sans-serif; }
+    [hidden] { display: none !important; }
+    .page { max-width: 1040px; margin: 0 auto; padding: 28px 16px 60px; }
+    header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+    .marque { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+    h1 { font: 600 32px/1.15 'Cormorant Garamond', Georgia, serif; }
+    .maj { color: var(--doux); font-size: 13px; }
+    .bandeau { background: #FFF6DD; border: 1px solid var(--ligne); border-radius: 10px; padding: 10px 14px; font-size: 14px; margin-bottom: 18px; }
+    .chiffres { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 22px; }
+    .chiffre { background: var(--surface); border: 1px solid var(--ligne); border-radius: 14px; padding: 16px; }
+    .chiffre span { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--doux); font-weight: 500; }
+    .chiffre strong { display: block; font: 600 36px/1.1 'Cormorant Garamond', Georgia, serif; color: var(--vert); font-variant-numeric: tabular-nums; }
+    .chiffre small { color: var(--doux); font-size: 13px; }
+    .chiffre--total strong { color: var(--accent); }
+    .chiffre--absent strong { color: var(--rouge); }
+    .outils { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .outils input { flex: 1 1 200px; font: inherit; padding: 10px 12px; border: 1px solid var(--ligne); border-radius: 10px; background: var(--surface); }
+    .filtres { display: flex; flex-wrap: wrap; gap: 6px; }
+    button { font: inherit; cursor: pointer; }
+    .filtres button, .btn {
+      border: 1px solid var(--ligne); background: var(--surface); color: var(--texte);
+      border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 500;
+    }
+    .filtres button[aria-pressed="true"] { background: var(--vert); border-color: var(--vert); color: #fff; }
+    .btn--or { border-color: var(--accent); color: var(--accent); }
+    .table-zone { background: var(--surface); border: 1px solid var(--ligne); border-radius: 14px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 640px; }
+    th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--ligne); vertical-align: top; }
+    th { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--doux); font-weight: 500; background: var(--fond); position: sticky; top: 0; }
+    tr:last-child td { border-bottom: 0; }
+    td.num { font-variant-numeric: tabular-nums; text-align: center; }
+    .pastille { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+    .p-ceremonie { background: #EAF2EE; color: var(--vert); }
+    .p-soiree { background: #F6EEDB; color: #8A6A22; }
+    .p-les-deux { background: var(--vert); color: #fff; }
+    .p-absent { background: #F6E3DF; color: var(--rouge); }
+    .msg { color: var(--doux); font-style: italic; max-width: 280px; }
+    .wa { color: var(--vert); font-weight: 500; text-decoration: none; }
+    .vide { padding: 32px; text-align: center; color: var(--doux); }
+    @media (max-width: 600px) { h1 { font-size: 26px; } .chiffre strong { font-size: 30px; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <div class="marque">Ndaje · Tableau de bord</div>
+        <h1 id="titre">Confirmations de présence</h1>
+        <div class="maj" id="maj"></div>
+      </div>
+      <div class="outils" style="margin:0">
+        <button class="btn" id="actualiser">Actualiser</button>
+        <button class="btn btn--or" id="export">Exporter (CSV)</button>
+      </div>
+    </header>
+
+    <p class="bandeau" id="bandeau-demo" hidden>
+      Mode démo : données fictives. Pour voir les vraies réponses, ouvrez ce lien avec
+      <code>?api=…&amp;cle=…</code> (voir README).
+    </p>
+    <p class="bandeau" id="bandeau-erreur" hidden></p>
+
+    <section class="chiffres" aria-label="Résumé">
+      <div class="chiffre chiffre--total"><span>Personnes attendues</span><strong id="c-total">0</strong><small id="c-reponses"></small></div>
+      <div class="chiffre"><span>À la cérémonie</span><strong id="c-ceremonie">0</strong><small>personnes</small></div>
+      <div class="chiffre"><span>À la soirée</span><strong id="c-soiree">0</strong><small>personnes</small></div>
+      <div class="chiffre chiffre--absent"><span>Absents</span><strong id="c-absent">0</strong><small>réponses</small></div>
+    </section>
+
+    <div class="outils">
+      <input id="recherche" type="search" placeholder="Rechercher un nom ou un numéro…" aria-label="Rechercher">
+      <div class="filtres" id="filtres">
+        <button data-f="tous" aria-pressed="true">Tous</button>
+        <button data-f="ceremonie" aria-pressed="false">Cérémonie</button>
+        <button data-f="soiree" aria-pressed="false">Soirée</button>
+        <button data-f="les-deux" aria-pressed="false">Les deux</button>
+        <button data-f="absent" aria-pressed="false">Absents</button>
+      </div>
+    </div>
+
+    <div class="table-zone">
+      <table>
+        <thead><tr><th>Nom</th><th>Présence</th><th>Pers.</th><th>Message</th><th>Contact</th><th>Reçu le</th></tr></thead>
+        <tbody id="lignes"></tbody>
+      </table>
+      <div class="vide" id="vide" hidden>Aucune réponse pour l'instant.</div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+  const params = new URLSearchParams(location.search);
+  const API = params.get("api");   // URL de l'Apps Script du client
+  const CLE = params.get("cle");   // clé secrète définie dans Code.gs
+  if (params.get("titre")) document.getElementById("titre").textContent = params.get("titre");
+
+  const libelles = { ceremonie: "Cérémonie", soiree: "Soirée", "les-deux": "Les deux", absent: "Absent" };
+  let reponses = [];
+  let filtre = "tous";
+
+  const demo = [
+    { date: "2026-11-20T09:12:00Z", nom: "Fatou Sow", telephone: "77 123 45 67", presence: "les-deux", personnes: 2, message: "Félicitations mes chéris !" },
+    { date: "2026-11-20T10:40:00Z", nom: "Mamadou Fall", telephone: "+33 6 12 34 56 78", presence: "absent", personnes: 0, message: "Je serai à Paris, j'ai envoyé un petit cadeau 🙏🏾" },
+    { date: "2026-11-21T18:05:00Z", nom: "Awa Ndiaye", telephone: "76 555 12 12", presence: "soiree", personnes: 3, message: "" },
+    { date: "2026-11-22T08:30:00Z", nom: "Tante Khady Diop", telephone: "77 900 00 01", presence: "les-deux", personnes: 5, message: "Qu'Allah bénisse votre union." },
+    { date: "2026-11-22T12:15:00Z", nom: "Ibrahima Gueye", telephone: "78 222 33 44", presence: "ceremonie", personnes: 1, message: "" },
+    { date: "2026-11-23T20:47:00Z", nom: "Coumba Diallo", telephone: "+39 333 123 4567", presence: "absent", personnes: 0, message: "Toute la famille de Milan vous embrasse." },
+    { date: "2026-11-24T07:58:00Z", nom: "Ousmane Ba", telephone: "77 444 55 66", presence: "soiree", personnes: 2, message: "" }
+  ];
+
+  const $ = id => document.getElementById(id);
+  function cellule(texte, cls) { const td = document.createElement("td"); if (cls) td.className = cls; td.textContent = texte; return td; }
+
+  function calculer() {
+    let ceremonie = 0, soiree = 0, absents = 0, total = 0;
+    reponses.forEach(r => {
+      const n = Number(r.personnes) || 0;
+      if (r.presence === "absent") { absents++; return; }
+      total += n;
+      if (r.presence === "ceremonie" || r.presence === "les-deux") ceremonie += n;
+      if (r.presence === "soiree" || r.presence === "les-deux") soiree += n;
+    });
+    $("c-total").textContent = total;
+    $("c-ceremonie").textContent = ceremonie;
+    $("c-soiree").textContent = soiree;
+    $("c-absent").textContent = absents;
+    $("c-reponses").textContent = `${reponses.length} réponse${reponses.length > 1 ? "s" : ""} reçue${reponses.length > 1 ? "s" : ""}`;
+  }
+
+  function lienWhatsApp(tel) {
+    let n = String(tel).replace(/[^\d+]/g, "");
+    if (n.startsWith("+")) n = n.slice(1);
+    else if (n.startsWith("00")) n = n.slice(2);
+    else if (n.length === 9) n = "221" + n; // numéro sénégalais sans indicatif
+    return "https://wa.me/" + n;
+  }
+
+  function afficher() {
+    const q = $("recherche").value.trim().toLowerCase();
+    const visibles = reponses
+      .filter(r => filtre === "tous" || r.presence === filtre)
+      .filter(r => !q || String(r.nom).toLowerCase().includes(q) || String(r.telephone).includes(q))
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    const tbody = $("lignes");
+    tbody.replaceChildren(...visibles.map(r => {
+      const tr = document.createElement("tr");
+      tr.append(cellule(r.nom));
+      const tdP = document.createElement("td");
+      const p = document.createElement("span");
+      p.className = "pastille p-" + r.presence; p.textContent = libelles[r.presence] || r.presence;
+      tdP.append(p); tr.append(tdP);
+      tr.append(cellule(r.presence === "absent" ? "—" : r.personnes, "num"));
+      tr.append(cellule(r.message || "", "msg"));
+      const tdC = document.createElement("td");
+      const a = document.createElement("a");
+      a.className = "wa"; a.href = lienWhatsApp(r.telephone); a.target = "_blank"; a.rel = "noopener";
+      a.textContent = r.telephone;
+      tdC.append(a); tr.append(tdC);
+      const d = new Date(r.date);
+      tr.append(cellule(isNaN(d) ? "" : d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })));
+      return tr;
+    }));
+    $("vide").hidden = visibles.length > 0;
+  }
+
+  async function charger() {
+    $("bandeau-erreur").hidden = true;
+    if (!API || !CLE) {
+      // Mode démo : données fictives + les réponses de test envoyées depuis l'invitation sur ce même navigateur
+      let locales = [];
+      try {
+        Object.keys(localStorage).filter(k => k.endsWith(":demo"))
+          .forEach(k => { locales = locales.concat(JSON.parse(localStorage.getItem(k)) || []); });
+      } catch (e) { /* navigateur privé */ }
+      reponses = demo.concat(locales); $("bandeau-demo").hidden = false;
+    } else {
+      try {
+        const res = await fetch(API + "?cle=" + encodeURIComponent(CLE));
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.erreur || "Réponse invalide");
+        reponses = json.reponses || [];
+      } catch (e) {
+        $("bandeau-erreur").textContent = "Impossible de charger les réponses : " + e.message;
+        $("bandeau-erreur").hidden = false;
+      }
+    }
+    $("maj").textContent = "Mis à jour à " + new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+    calculer(); afficher();
+  }
+
+  function exporter() {
+    const echap = v => '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"';
+    const lignes = [["Nom", "Téléphone", "Présence", "Personnes", "Message", "Date"]]
+      .concat(reponses.map(r => [r.nom, r.telephone, libelles[r.presence] || r.presence, r.personnes, r.message, r.date]));
+    const csv = "﻿" + lignes.map(l => l.map(echap).join(";")).join("\n"); // ; et BOM = s'ouvre bien dans Excel
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    a.download = "confirmations-ndaje.csv";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+
+  document.querySelectorAll("#filtres button").forEach(b => b.addEventListener("click", () => {
+    filtre = b.dataset.f;
+    document.querySelectorAll("#filtres button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    afficher();
+  }));
+  $("recherche").addEventListener("input", afficher);
+  $("actualiser").addEventListener("click", charger);
+  $("export").addEventListener("click", exporter);
+  charger();
+  if (API) setInterval(charger, 60000);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Invitation — Ndaje</title>
+  <meta name="description" content="Vous êtes invité·e. Ouvrez l'invitation pour découvrir le programme et confirmer votre présence.">
+  <!-- Aperçu quand le lien est partagé sur WhatsApp : remplacez par la vraie image d'Aicha (1200×630) -->
+  <meta property="og:title" content="Vous êtes invité·e">
+  <meta property="og:description" content="Ouvrez l'invitation pour découvrir le programme et confirmer votre présence.">
+  <meta property="og:image" content="assets/apercu-whatsapp.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. ENVELOPPE D'OUVERTURE ------------------------------------------- -->
+  <div id="enveloppe" class="enveloppe" role="dialog" aria-label="Invitation fermée">
+    <div class="enveloppe__carte">
+      <div class="enveloppe__rabat"></div>
+      <div class="enveloppe__sceau"><img data-visuel="monogramme" alt=""><span data-initiales></span></div>
+      <p class="enveloppe__pour">Vous êtes invité·e au mariage de</p>
+      <h1 class="enveloppe__noms" data-noms></h1>
+      <button id="ouvrir" class="bouton" data-t="ouvrir"></button>
+    </div>
+  </div>
+
+  <main id="invitation" class="invitation" hidden>
+    <div class="langues" id="langues" hidden>
+      <button data-lang="fr" aria-pressed="true">FR</button>
+      <button data-lang="wo" aria-pressed="false">WO</button>
+    </div>
+
+    <!-- 2. COUVERTURE ----------------------------------------------------- -->
+    <header class="couverture">
+      <div class="couverture__photo"><img data-visuel="photoCouverture" alt=""></div>
+      <div class="couverture__contenu revele">
+        <img class="monogramme" data-visuel="monogramme" alt="">
+        <h1 class="titre-noms"><span data-nom-a></span><em>&amp;</em><span data-nom-b></span></h1>
+        <p class="date" data-date-texte></p>
+        <p class="texte-invitation" data-t="invitation"></p>
+      </div>
+    </header>
+
+    <div class="bordure" aria-hidden="true"></div>
+
+    <!-- 3. COMPTE À REBOURS ---------------------------------------------- -->
+    <section class="section rebours revele" aria-labelledby="t-rebours">
+      <h2 id="t-rebours" class="sur-titre" data-t="compteRebours"></h2>
+      <div class="rebours__grille">
+        <div><strong id="cr-j">0</strong><span data-t="jours"></span></div>
+        <div><strong id="cr-h">0</strong><span data-t="heures"></span></div>
+        <div><strong id="cr-m">0</strong><span data-t="minutes"></span></div>
+        <div><strong id="cr-s">0</strong><span data-t="secondes"></span></div>
+      </div>
+    </section>
+
+    <!-- 4. PROGRAMME ------------------------------------------------------ -->
+    <section class="section" aria-labelledby="t-programme">
+      <h2 id="t-programme" class="titre-section revele" data-t="programme"></h2>
+      <ol id="programme" class="programme"></ol>
+    </section>
+
+    <!-- 5. PHOTOS --------------------------------------------------------- -->
+    <section class="section galerie" id="galerie" aria-label="Photos"></section>
+
+    <div class="bordure" aria-hidden="true"></div>
+
+    <!-- 6. CONFIRMATION DE PRÉSENCE (RSVP) -------------------------------- -->
+    <section class="section" aria-labelledby="t-rsvp">
+      <h2 id="t-rsvp" class="titre-section revele" data-t="presenceTitre"></h2>
+      <p class="sous-titre revele"><span data-t="presenceSousTitre"></span> <span id="date-limite"></span></p>
+
+      <form id="rsvp" class="carte rsvp revele" novalidate>
+        <label class="champ">
+          <span data-t="nom"></span>
+          <input name="nom" autocomplete="name" required maxlength="80">
+        </label>
+        <label class="champ">
+          <span data-t="telephone"></span>
+          <input name="telephone" type="tel" autocomplete="tel" required maxlength="25" inputmode="tel">
+        </label>
+
+        <fieldset class="champ">
+          <legend data-t="vousSerez"></legend>
+          <div id="choix" class="choix"></div>
+        </fieldset>
+
+        <label class="champ" id="champ-nombre">
+          <span data-t="nombre"></span>
+          <div class="compteur">
+            <button type="button" data-pas="-1" aria-label="Moins">−</button>
+            <input name="personnes" type="number" value="1" min="1" readonly>
+            <button type="button" data-pas="1" aria-label="Plus">+</button>
+          </div>
+        </label>
+
+        <label class="champ">
+          <span data-t="message"></span>
+          <textarea name="message" rows="3" maxlength="400"></textarea>
+        </label>
+
+        <p class="erreur" id="erreur" role="alert" hidden></p>
+        <button class="bouton bouton--plein" type="submit" data-t="envoyer"></button>
+      </form>
+
+      <div id="rsvp-merci" class="carte merci" hidden role="status"></div>
+    </section>
+
+    <!-- 7. CAGNOTTE ------------------------------------------------------- -->
+    <section class="section" id="cagnotte" aria-labelledby="t-cagnotte" hidden>
+      <h2 id="t-cagnotte" class="titre-section revele" data-t="cagnotteTitre"></h2>
+      <p class="sous-titre revele" data-t="cagnotteTexte"></p>
+      <div class="cagnotte revele" id="cagnotte-moyens"></div>
+      <p class="titulaire revele"><span data-t="auNomDe"></span> <strong id="titulaire"></strong></p>
+    </section>
+
+    <footer class="pied">
+      <img class="monogramme monogramme--petit" data-visuel="monogramme" alt="">
+      <p><span data-t="creePar"></span> <a href="https://wa.me/221XXXXXXXXX" target="_blank" rel="noopener">Ndaje</a></p>
+      <p class="slogan">Chaque fête mérite son invitation</p>
+    </footer>
+  </main>
+
+  <audio id="musique" loop preload="none"></audio>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

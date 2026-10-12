@@ -1,0 +1,226 @@
+/* =========================================================
+   NDAJE — STYLE DU TEMPLATE
+   Les couleurs et polices viennent de config.js (theme).
+   Aicha n'a pas besoin de toucher ce fichier.
+   ========================================================= */
+
+:root {
+  --fond: #FBF7EF; --surface: #fff; --texte: #1F2A24; --texte-doux: #5E6B63;
+  --accent: #B8913A; --accent-doux: #E9DCC0; --secondaire: #1F5B45;
+  --police-titre: Georgia, serif; --police-texte: system-ui, sans-serif;
+  --motif: none;
+  --rayon: 14px;
+  --largeur: 560px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--fond); color: var(--texte);
+  font: 300 16px/1.65 var(--police-texte);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+img[src=""], img:not([src]) { display: none; }
+button { font: inherit; cursor: pointer; }
+[hidden] { display: none !important; }
+
+/* ---------- Enveloppe ---------- */
+.enveloppe {
+  position: fixed; inset: 0; z-index: 10;
+  display: grid; place-items: center; padding: 24px;
+  background: radial-gradient(circle at 50% 40%, var(--surface), var(--fond) 70%);
+  transition: opacity .8s ease, visibility .8s;
+}
+.enveloppe.ouverte { opacity: 0; visibility: hidden; }
+.enveloppe__carte {
+  position: relative; width: min(100%, 380px); padding: 168px 28px 36px;
+  background: var(--surface); border: 1px solid var(--accent-doux);
+  border-radius: var(--rayon); text-align: center;
+  box-shadow: 0 30px 60px -30px rgba(31, 42, 36, .35);
+  overflow: hidden;
+}
+.enveloppe__rabat {
+  position: absolute; inset: 0 0 auto; height: 110px;
+  background: var(--accent-doux);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top; transition: transform .9s cubic-bezier(.6,0,.3,1);
+}
+.enveloppe.ouvre .enveloppe__rabat { transform: rotateX(180deg); }
+.enveloppe__sceau {
+  position: absolute; top: 74px; left: 50%; translate: -50% 0;
+  width: 68px; height: 68px; border-radius: 50%;
+  background: var(--accent); color: var(--surface);
+  display: grid; place-items: center;
+  font: 600 22px var(--police-titre); letter-spacing: .02em;
+  box-shadow: 0 6px 14px -4px rgba(0,0,0,.35), inset 0 0 0 4px rgba(255,255,255,.18);
+  transition: transform .6s ease, opacity .6s;
+}
+.enveloppe__sceau img { width: 44px; filter: brightness(10); }
+.enveloppe__sceau img:not([src=""]) + span { display: none; }
+.enveloppe.ouvre .enveloppe__sceau { transform: scale(.6); opacity: 0; }
+.enveloppe__pour { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--texte-doux); }
+.enveloppe__noms { font: 500 34px/1.15 var(--police-titre); margin: 10px 0 28px; }
+
+/* ---------- Boutons ---------- */
+.bouton {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 0 26px; border-radius: 999px;
+  border: 1px solid var(--accent); background: transparent; color: var(--texte);
+  letter-spacing: .08em; text-transform: uppercase; font-size: 13px; font-weight: 500;
+  transition: background .25s, color .25s, transform .15s;
+}
+.bouton:hover { background: var(--accent); color: var(--surface); }
+.bouton:active { transform: scale(.97); }
+.bouton--plein { background: var(--secondaire); border-color: var(--secondaire); color: #fff; width: 100%; }
+.bouton--plein:hover { background: var(--texte); border-color: var(--texte); }
+.bouton[disabled] { opacity: .6; pointer-events: none; }
+.bouton:focus-visible, input:focus-visible, textarea:focus-visible, .choix label:focus-within {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+
+/* ---------- Mise en page ---------- */
+.invitation { max-width: var(--largeur); margin: 0 auto; padding-bottom: 40px; }
+.section { padding: 56px 24px 0; text-align: center; }
+.titre-section { font: 500 34px/1.2 var(--police-titre); margin-bottom: 10px; }
+.titre-section::after {
+  content: ""; display: block; width: 44px; height: 1px; margin: 14px auto 0; background: var(--accent);
+}
+.sur-titre, .sous-titre { color: var(--texte-doux); }
+.sur-titre { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; margin-bottom: 16px; }
+.sous-titre { margin-bottom: 28px; }
+.carte {
+  background: var(--surface); border: 1px solid var(--accent-doux); border-radius: var(--rayon);
+  padding: 24px; text-align: left;
+}
+
+/* Bordure décorative : le motif wax d'Aicha, sinon un filet doré */
+.bordure {
+  height: 22px; margin: 56px 24px 0;
+  background: var(--motif) center / auto 100% repeat-x;
+  border-top: 1px solid var(--accent-doux); border-bottom: 1px solid var(--accent-doux);
+  opacity: .9;
+}
+
+/* ---------- Langues ---------- */
+.langues {
+  position: fixed; top: 14px; right: 14px; z-index: 5;
+  display: flex; background: var(--surface); border: 1px solid var(--accent-doux);
+  border-radius: 999px; padding: 3px;
+}
+.langues button {
+  border: 0; background: none; padding: 6px 12px; border-radius: 999px;
+  font-size: 12px; font-weight: 500; letter-spacing: .08em; color: var(--texte-doux);
+}
+.langues button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+
+/* ---------- Couverture ---------- */
+.couverture { text-align: center; }
+.couverture__photo { aspect-ratio: 4 / 5; overflow: hidden; }
+.couverture__photo img { width: 100%; height: 100%; object-fit: cover; animation: zoom 14s ease-out both; }
+.couverture__photo:has(img[src=""]), .couverture__photo:not(:has(img)) { display: none; }
+.couverture__contenu { padding: 40px 24px 0; }
+.couverture__photo + .couverture__contenu { margin-top: -60px; position: relative; }
+.couverture__photo + .couverture__contenu .monogramme {
+  background: var(--fond); border-radius: 50%; padding: 10px; box-sizing: content-box;
+}
+.monogramme { width: 64px; margin: 0 auto 18px; }
+.monogramme--petit { width: 36px; margin-bottom: 10px; opacity: .8; }
+.titre-noms { font: 500 clamp(42px, 12vw, 58px)/1.05 var(--police-titre); }
+.titre-noms span { display: block; }
+.titre-noms em { display: block; font-size: .6em; color: var(--accent); margin: 4px 0; }
+.date {
+  display: inline-block; margin: 22px 0 18px; padding: 6px 16px;
+  border-top: 1px solid var(--accent); border-bottom: 1px solid var(--accent);
+  font-size: 13px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500;
+}
+.texte-invitation { font: italic 500 20px/1.5 var(--police-titre); color: var(--texte-doux); max-width: 420px; margin: 0 auto; }
+
+@keyframes zoom { from { transform: scale(1.12); } to { transform: scale(1); } }
+
+/* ---------- Compte à rebours ---------- */
+.rebours__grille { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.rebours__grille div { background: var(--surface); border: 1px solid var(--accent-doux); border-radius: var(--rayon); padding: 14px 4px; }
+.rebours__grille strong { display: block; font: 600 32px/1 var(--police-titre); color: var(--secondaire); font-variant-numeric: tabular-nums; }
+.rebours__grille span { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--texte-doux); }
+
+/* ---------- Programme ---------- */
+.programme { list-style: none; position: relative; text-align: left; margin-top: 20px; }
+.programme::before {
+  content: ""; position: absolute; left: 27px; top: 28px; bottom: 28px; width: 1px; background: var(--accent-doux);
+}
+.etape { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 16px; margin-bottom: 18px; }
+.etape__icone {
+  width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--surface); border: 1px solid var(--accent); color: var(--accent); z-index: 1;
+}
+.etape__icone svg { width: 24px; height: 24px; }
+.etape__heure { font-size: 12px; letter-spacing: .16em; font-weight: 500; color: var(--accent); }
+.etape__titre { font: 600 22px/1.25 var(--police-titre); margin: 2px 0 2px; }
+.etape__lieu { color: var(--texte-doux); font-size: 15px; }
+.etape__carte { padding: 16px 18px; }
+.etape__lien {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+  font-size: 13px; font-weight: 500; color: var(--secondaire); text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+/* ---------- Galerie ---------- */
+.galerie { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.galerie img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 10px; }
+.galerie img:nth-child(3n+1) { grid-column: span 6; aspect-ratio: 4 / 3; }
+.galerie img:nth-child(3n+2), .galerie img:nth-child(3n) { grid-column: span 3; }
+.galerie:empty { display: none; }
+
+/* ---------- Formulaire ---------- */
+.rsvp { display: grid; gap: 18px; }
+.champ { display: grid; gap: 6px; border: 0; }
+.champ > span, .champ legend { font-size: 13px; font-weight: 500; color: var(--texte-doux); margin-bottom: 6px; }
+input, textarea {
+  width: 100%; font: inherit; font-weight: 400; color: var(--texte);
+  padding: 12px 14px; border: 1px solid var(--accent-doux); border-radius: 10px; background: var(--fond);
+  -webkit-appearance: none;
+}
+textarea { resize: vertical; }
+.choix { display: grid; gap: 8px; }
+.choix label {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+  border: 1px solid var(--accent-doux); border-radius: 10px; cursor: pointer; background: var(--fond);
+  transition: border-color .2s, background .2s;
+}
+.choix input { width: 18px; height: 18px; accent-color: var(--secondaire); -webkit-appearance: auto; }
+.choix label:has(input:checked) { border-color: var(--secondaire); background: color-mix(in srgb, var(--secondaire) 7%, var(--surface)); }
+.choix .choix--absent { color: var(--texte-doux); }
+.compteur { display: grid; grid-template-columns: 48px 1fr 48px; gap: 8px; max-width: 200px; }
+.compteur button { border: 1px solid var(--accent-doux); background: var(--surface); border-radius: 10px; font-size: 20px; color: var(--texte); }
+.compteur input { text-align: center; font-weight: 500; }
+.erreur { color: #A23B2A; font-size: 14px; }
+.merci { text-align: center; font: italic 500 22px/1.5 var(--police-titre); padding: 32px 24px; }
+.merci::before { content: "✓"; display: grid; place-items: center; width: 52px; height: 52px; margin: 0 auto 14px; border-radius: 50%; background: var(--secondaire); color: #fff; font: 400 24px var(--police-texte); }
+
+/* ---------- Cagnotte ---------- */
+.cagnotte { display: grid; gap: 12px; }
+.moyen { display: flex; align-items: center; gap: 14px; text-align: left; }
+.moyen__logo { width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; color: #fff; font-weight: 500; font-size: 13px; flex: none; }
+.moyen__logo--wave { background: #1DC4FF; }
+.moyen__logo--om { background: #FF7900; }
+.moyen__infos { flex: 1; min-width: 0; }
+.moyen__nom { font-size: 13px; color: var(--texte-doux); }
+.moyen__numero { font: 600 20px var(--police-titre); letter-spacing: .04em; }
+.moyen .bouton { min-height: 40px; padding: 0 16px; font-size: 12px; }
+.titulaire { margin-top: 14px; color: var(--texte-doux); font-size: 14px; }
+
+/* ---------- Pied de page ---------- */
+.pied { text-align: center; padding: 64px 24px 24px; font-size: 13px; color: var(--texte-doux); }
+.pied img { margin: 0 auto 10px; }
+.pied a { color: var(--accent); font-weight: 500; text-decoration: none; }
+.slogan { font: italic 500 16px var(--police-titre); margin-top: 4px; }
+
+/* ---------- Apparition au défilement ---------- */
+.revele { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s ease; }
+.revele.visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .revele { opacity: 1; transform: none; }
+}
