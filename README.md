@@ -81,6 +81,7 @@ Il suit les mêmes règles que `invitation/` : seul `config.js` change d'un clie
    - L'`icone` de chaque étape : `mosquee`, `eglise`, `mairie`, `maison`, `soiree`, `repas`.
    - Si le client donne un lien Google Maps exact, ajoutez `maps: "https://maps.app.goo.gl/…"` à l'étape.
    - Page souvenir : `souvenirApresJours` (30 par défaut). Ce nombre de jours après la fête, l'invitation ne garde que les noms, la date, les photos et un merci. Option « Souvenir prolongé » payée : mettez `395`. Pour la montrer à un client : ajoutez `?souvenir=1` à l'adresse.
+   - Logos de la cagnotte : `visuels.logoWave` et `visuels.logoOrangeMoney` (fichiers `logo-wave.png` et `logo-orange-money.png` déjà dans `assets/`). Un fichier absent = pastille de couleur avec « W » / « OM ».
    - Cagnotte et invités à l'étranger : `textes.fr.cagnotteEtranger` explique comment envoyer vers Wave / Orange Money depuis l'étranger (Sendwave, TapTapSend, Remitly…). Mettez `""` pour masquer la ligne.
    - Wolof : complétez `textes.wo` et faites **relire par la famille**. Toute clé absente s'affiche en français. Si `wo` est vide, le bouton FR/WO disparaît.
 3. **Déposer les visuels** d'Aicha dans `assets/`.

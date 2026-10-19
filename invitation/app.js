@@ -296,8 +296,9 @@
     $("#cagnotte").hidden = false;
     $("#titulaire").textContent = cg.titulaire || "";
     const moyens = [];
-    if (cg.wave) moyens.push({ nom: "Wave", num: cg.wave, logo: "moyen__logo--wave", court: "W" });
-    if (cg.orangeMoney) moyens.push({ nom: "Orange Money", num: cg.orangeMoney, logo: "moyen__logo--om", court: "OM" });
+    const VI = C.visuels || {};
+    if (cg.wave) moyens.push({ nom: "Wave", num: cg.wave, logo: "moyen__logo--wave", court: "W", img: VI.logoWave });
+    if (cg.orangeMoney) moyens.push({ nom: "Orange Money", num: cg.orangeMoney, logo: "moyen__logo--om", court: "OM", img: VI.logoOrangeMoney });
     $("#cagnotte-moyens").replaceChildren(...moyens.map(m => {
       const bouton = el("button", { class: "bouton", type: "button", "data-t": "copier", text: t("copier") });
       bouton.addEventListener("click", async () => {
@@ -311,7 +312,15 @@
         setTimeout(() => { bouton.textContent = t("copier"); }, 1800);
       });
       return el("div", { class: "carte moyen" },
-        el("div", { class: "moyen__logo " + m.logo, text: m.court, "aria-hidden": "true" }),
+        (() => {
+          // Logo officiel si fourni (visuels.logoWave / logoOrangeMoney), sinon pastille W / OM
+          const d = el("div", { class: "moyen__logo " + m.logo, text: m.court, "aria-hidden": "true" });
+          if (!m.img) return d;
+          const i = el("img", { src: m.img, alt: "" });
+          i.addEventListener("error", () => { d.classList.remove("moyen__logo--img"); d.textContent = m.court; });
+          d.textContent = ""; d.classList.add("moyen__logo--img"); d.append(i);
+          return d;
+        })(),
         el("div", { class: "moyen__infos" },
           el("div", { class: "moyen__nom", text: m.nom }),
           el("div", { class: "moyen__numero", text: m.num })

@@ -204,6 +204,11 @@ textarea { resize: vertical; }
 .moyen__logo { width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; color: #fff; font-weight: 500; font-size: 13px; flex: none; }
 .moyen__logo--wave { background: #1DC4FF; }
 .moyen__logo--om { background: #FF7900; }
+/* Logos officiels (visuels.logoWave / logoOrangeMoney) */
+.moyen__logo--img { background: #fff; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, .06); }
+.moyen__logo--img img { width: 100%; height: 100%; object-fit: cover; }
+.moyen__logo--om.moyen__logo--img { padding: 5px; }
+.moyen__logo--om.moyen__logo--img img { object-fit: contain; }
 .moyen__infos { flex: 1; min-width: 0; }
 .moyen__nom { font-size: 13px; color: var(--texte-doux); }
 .moyen__numero { font: 600 20px var(--police-titre); letter-spacing: .04em; }

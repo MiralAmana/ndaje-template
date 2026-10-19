@@ -533,3 +533,9 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .avec-bouquet .couverture__photo { margin-top: 34px; }
 /* Les bouquets des coins débordent un peu de l'écran : on coupe proprement (pas de glissement latéral sur iPhone) */
 .avec-bouquet .couverture { overflow: hidden; }
+
+/* Logos officiels Wave / Orange Money dans la cagnotte */
+.moyen__logo--img { background: #fff !important; border-radius: 11px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, .06); }
+.moyen__logo--img img { width: 100%; height: 100%; object-fit: cover; }
+.moyen--om .moyen__logo--img { padding: 4px; }
+.moyen--om .moyen__logo--img img { object-fit: contain; }

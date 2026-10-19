@@ -377,13 +377,23 @@
   });
 
   /* ---------- Cagnotte ---------- */
+  // Logo officiel (visuels.logoWave / logoOrangeMoney) ; fichier absent = pastille avec icône.
+  function logoPaiement(m) {
+    const bloc = el("span", { class: "moyen__logo" }, icone(m.ic));
+    if (!m.logo) return bloc;
+    const img = el("img", { src: m.logo, alt: "", width: "40", height: "40" });
+    img.addEventListener("error", () => { bloc.classList.remove("moyen__logo--img"); bloc.replaceChildren(icone(m.ic)); });
+    bloc.classList.add("moyen__logo--img");
+    bloc.replaceChildren(img);
+    return bloc;
+  }
   const cg = C.cagnotte || {};
   if (!modeSouvenir && cg.active && (cg.wave || cg.orangeMoney)) {
     $("#cagnotte").hidden = false;
     $("#titulaire").textContent = cg.titulaire || "";
     const moyens = [];
-    if (cg.wave) moyens.push({ nom: "Wave Sénégal", num: cg.wave, classe: "wave", ic: "wave" });
-    if (cg.orangeMoney) moyens.push({ nom: "Orange Money", num: cg.orangeMoney, classe: "om", ic: "billet" });
+    if (cg.wave) moyens.push({ nom: "Wave Sénégal", num: cg.wave, classe: "wave", ic: "wave", logo: V.logoWave });
+    if (cg.orangeMoney) moyens.push({ nom: "Orange Money", num: cg.orangeMoney, classe: "om", ic: "billet", logo: V.logoOrangeMoney });
     $("#moyens").replaceChildren(...moyens.map(m => {
       const libelle = el("span", { "data-t": "copier", text: t("copier") });
       const bouton = el("button", { class: "copier", type: "button" }, icone("copier"), libelle);
@@ -398,7 +408,7 @@
         setTimeout(() => { bouton.classList.remove("copie"); libelle.textContent = t("copier"); }, 1800);
       });
       return el("div", { class: "moyen moyen--" + m.classe },
-        el("span", { class: "moyen__logo" }, icone(m.ic)),
+        logoPaiement(m),
         el("div", {}, el("div", { class: "moyen__nom", text: m.nom }), el("div", { class: "moyen__numero", text: m.num })),
         bouton);
     }));

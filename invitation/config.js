@@ -40,7 +40,10 @@ window.NDAJE = {
       "assets/photo-2.jpg",
       "assets/photo-3.jpg"
     ],
-    musique: ""                            // ex. "assets/musique.mp3" (optionnel)
+    musique: "",                           // ex. "assets/musique.mp3" (optionnel)
+    // Logos des moyens de paiement (cagnotte). Absent = pastille de couleur.
+    logoWave: "assets/logo-wave.png",
+    logoOrangeMoney: "assets/logo-orange-money.png"
   },
 
   // --- Programme ------------------------------------------------------------
