@@ -58,6 +58,14 @@
   const metaCouleur = el("meta", { name: "theme-color", content: th.fond || "#FBF7EF" });
   document.head.append(metaCouleur);
 
+  /* ---------- Page souvenir ---------- */
+  // X jours après la fête (souvenirApresJours, 30 par défaut), on ne garde que les noms,
+  // la date, les photos et un merci. ?souvenir=1 dans l'URL force ce mode pour le montrer.
+  const joursSouvenir = typeof C.souvenirApresJours === "number" ? C.souvenirApresJours : 30;
+  const finFete = new Date(C.date).getTime();
+  const modeSouvenir = new URLSearchParams(location.search).has("souvenir") ||
+    (!isNaN(finFete) && Date.now() > finFete + joursSouvenir * 86400000);
+
   /* ---------- Identité ---------- */
   const titresType = {
     mariage: "Vous êtes invité·e au mariage de",
@@ -120,6 +128,7 @@
     return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(`${etape.lieu}, ${etape.adresse}`);
   }
   function construireProgramme() {
+    if (modeSouvenir) return; // pas d'adresses sur la page souvenir
     const ol = $("#programme");
     ol.replaceChildren(...C.programme.map(e =>
       el("li", { class: "etape revele visible" },
@@ -236,7 +245,7 @@
 
   /* ---------- Cagnotte ---------- */
   const cg = C.cagnotte || {};
-  if (cg.active && (cg.wave || cg.orangeMoney)) {
+  if (!modeSouvenir && cg.active && (cg.wave || cg.orangeMoney)) {
     $("#cagnotte").hidden = false;
     $("#titulaire").textContent = cg.titulaire || "";
     const moyens = [];
@@ -263,6 +272,14 @@
         bouton
       );
     }));
+  }
+
+  if (modeSouvenir) {
+    $("#souvenir").hidden = false;
+    [$(".rebours"), $("#programme"), $("#rsvp"), $("#cagnotte")].forEach(n => {
+      const section = n && n.closest("section");
+      if (section) section.hidden = true;
+    });
   }
 
   /* ---------- Langues ---------- */

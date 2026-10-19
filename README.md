@@ -15,6 +15,8 @@ ndaje-template/
 │   ├── app.js           moteur : lit config.js et construit la page (ne pas modifier)
 │   ├── config.js        ★ FICHE CLIENT, à remplir pour chaque commande
 │   └── assets/          ★ VISUELS D'AICHA
+├── modeles/
+│   └── union-sacree/    ★ modèle d'Aicha « Union Sacrée » (bordeaux, rose, or) : même principe, sa propre fiche config.js
 ├── dashboard/
 │   └── index.html       tableau de bord des mariés (confirmations en direct)
 └── apps-script/
@@ -60,12 +62,24 @@ Pour compresser les photos gratuitement : [squoosh.app](https://squoosh.app).
 
 ---
 
+## Les modèles d'Aicha (`modeles/`)
+
+Chaque modèle est un dossier complet (`index.html`, `style.css`, `app.js`, `config.js`, `assets/`), construit d'après une maquette d'Aicha.
+Il suit les mêmes règles que `invitation/` : seul `config.js` change d'un client à l'autre, les visuels gardent les mêmes noms, un fichier absent disparaît proprement, et les réponses partent vers le **même** Google Apps Script (même tableau de bord).
+
+- **Union Sacrée** (`modeles/union-sacree/`) : enveloppe à sceau de cire, couverture avec pétales, compte à rebours, programme en frise, code vestimentaire, lieu (Google Maps + Waze), réponse, cagnotte, livre d'or, français / anglais (wolof dès que des textes relus sont ajoutés), barre de navigation, bouton « Noter la date » (fichier calendrier). Démo : `/modeles/union-sacree/`.
+  - Clés en plus du modèle de base : `dureeHeures`, `dateTexte` par langue, `dressCode`, `lieu`, `ligneRsvp`, `livreDor`, `textes.en`.
+  - `choixPresence` : garder les identifiants `ceremonie`, `soiree` ou `les-deux` (le Google Sheet les vérifie).
+  - Pour un client : copier `modeles/union-sacree/` (au lieu de `invitation/`) dans `clients/<prenom-a>-<prenom-b>/`.
+
 ## Pour chaque nouveau client
 
 1. **Copier** le dossier `invitation/` (ex. `aissatou-cheikh/`).
 2. **Remplir `config.js`** avec le formulaire du client : noms, date, programme, couleurs, cagnotte.
    - L'`icone` de chaque étape : `mosquee`, `eglise`, `mairie`, `maison`, `soiree`, `repas`.
    - Si le client donne un lien Google Maps exact, ajoutez `maps: "https://maps.app.goo.gl/…"` à l'étape.
+   - Page souvenir : `souvenirApresJours` (30 par défaut). Ce nombre de jours après la fête, l'invitation ne garde que les noms, la date, les photos et un merci. Option « Souvenir prolongé » payée : mettez `395`. Pour la montrer à un client : ajoutez `?souvenir=1` à l'adresse.
+   - Cagnotte et invités à l'étranger : `textes.fr.cagnotteEtranger` explique comment envoyer vers Wave / Orange Money depuis l'étranger (Sendwave, TapTapSend, Remitly…). Mettez `""` pour masquer la ligne.
    - Wolof : complétez `textes.wo` et faites **relire par la famille**. Toute clé absente s'affiche en français. Si `wo` est vide, le bouton FR/WO disparaît.
 3. **Déposer les visuels** d'Aicha dans `assets/`.
 4. **Brancher le Google Sheet** (ci-dessous) et coller l'URL dans `rsvpUrl`.
@@ -114,6 +128,15 @@ La page se met à jour toute seule chaque minute. La clé empêche les inconnus 
 Alternative : GitHub Pages fonctionne aussi.
 
 ---
+
+## Checklist fin d'invitation (30 jours après la fête)
+
+La page souvenir s'active toute seule, mais les données restent lisibles dans `config.js` pour quelqu'un qui sait chercher. Pour les retirer vraiment :
+
+- [ ] Vider `cagnotte.wave` et `cagnotte.orangeMoney` (mettre `""`), puis pousser sur GitHub
+- [ ] Vider les `adresse` du programme si le client le souhaite
+- [ ] Exporter les réponses du Google Sheet pour le client, puis archiver ou supprimer le Sheet
+- [ ] Si le client a payé l'option « Souvenir prolongé », vérifier `souvenirApresJours: 395`
 
 ## Checklist avant d'envoyer le lien
 

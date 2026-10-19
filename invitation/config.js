@@ -12,6 +12,10 @@ window.NDAJE = {
   date: "2026-12-19T10:00:00",           // date + heure du début (compte à rebours)
   dateTexte: "Samedi 19 décembre 2026",
   dateLimiteRSVP: "2026-12-05",          // après cette date, le formulaire se ferme
+  // Page souvenir : X jours après la fête, l'invitation ne garde que les noms, la date,
+  // les photos et un message de remerciement (cagnotte, adresses et réponses disparaissent).
+  // 30 par défaut. Option « Souvenir prolongé » payée : mettre 395 (30 jours + 1 an).
+  souvenirApresJours: 30,
 
   // --- Couleurs (proposées par Aicha, copiées depuis sa maquette) ---------
   theme: {
@@ -109,10 +113,14 @@ window.NDAJE = {
       ferme: "Les réponses sont closes. Contactez directement les mariés.",
       cagnotteTitre: "Offrir un cadeau",
       cagnotteTexte: "Vous êtes loin ou souhaitez nous gâter ? Vous pouvez envoyer votre participation directement :",
+      // Invités à l'étranger : comment envoyer vers Wave / Orange Money. Laisser "" pour masquer la ligne.
+      cagnotteEtranger: "Depuis l'étranger, envoyez sur ces numéros avec une application de transfert : Sendwave, TapTapSend, Remitly, WorldRemit, Western Union ou Orange Money Europe.",
       copier: "Copier", copie: "Copié !",
       auNomDe: "Au nom de",
       erreur: "Oups, l'envoi a échoué. Vérifiez votre connexion et réessayez.",
-      creePar: "Invitation créée par"
+      creePar: "Invitation créée par",
+      souvenirTitre: "Merci d'avoir partagé ce jour avec nous",
+      souvenirTexte: "Votre présence et vos messages ont rendu cette fête inoubliable."
     },
     wo: {
       ouvrir: "Ubbi invitation bi",

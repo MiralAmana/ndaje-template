@@ -209,6 +209,9 @@ textarea { resize: vertical; }
 .moyen__numero { font: 600 20px var(--police-titre); letter-spacing: .04em; }
 .moyen .bouton { min-height: 40px; padding: 0 16px; font-size: 12px; }
 .titulaire { margin-top: 14px; color: var(--texte-doux); font-size: 14px; }
+/* Indication pour les invités à l'étranger (clé textes.cagnotteEtranger, masquée si vide) */
+.cagnotte-etranger { margin-top: 10px; color: var(--texte-doux); font-size: 13px; line-height: 1.5; }
+.cagnotte-etranger:empty { display: none; }
 
 /* ---------- Pied de page ---------- */
 .pied { text-align: center; padding: 64px 24px 24px; font-size: 13px; color: var(--texte-doux); }

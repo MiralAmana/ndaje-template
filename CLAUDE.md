@@ -36,6 +36,8 @@ invitation/
   app.js       moteur : lit config.js et construit toute la page
   config.js    ★ FICHE CLIENT : seul fichier qui change d'un client à l'autre
   assets/      ★ visuels d'Aicha, noms de fichiers fixes
+modeles/
+  union-sacree/  modèle d'Aicha (même principe : config.js = fiche client, mêmes assets, même Apps Script)
 dashboard/
   index.html   tableau de bord (?api=URL_SCRIPT&cle=CLE&titre=…)
 apps-script/
