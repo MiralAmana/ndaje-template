@@ -20,7 +20,10 @@
   <div id="enveloppe" class="enveloppe" role="dialog" aria-modal="true" aria-labelledby="env-titre" hidden>
     <div class="enveloppe__fond" aria-hidden="true"></div>
     <div class="enveloppe__scene">
+      <img class="enveloppe__bouquet" data-visuel="bouquet" alt="">
       <p class="enveloppe__invite" id="env-titre" data-t="vousEtesInvite"></p>
+      <p class="enveloppe__noms" data-noms-courts></p>
+      <p class="enveloppe__date" data-date-texte></p>
       <div class="enveloppe__papier" aria-hidden="true">
         <div class="enveloppe__carte"><span class="enveloppe__carte-noms" data-noms-courts></span></div>
         <div class="enveloppe__poche"></div>
@@ -71,7 +74,7 @@
     <div class="separateur" aria-hidden="true"><span></span></div>
 
     <!-- PAGE SOUVENIR (X jours après la fête) ------------------------------ -->
-    <section class="carte bloc souvenir" id="souvenir" hidden>
+    <section class="carte bloc souvenir fleuri" id="souvenir" hidden>
       <h2 class="titre" data-t="souvenirTitre"></h2>
       <p class="texte" data-t="souvenirTexte"></p>
     </section>
@@ -92,7 +95,7 @@
     <div class="separateur revele" aria-hidden="true"><span></span></div>
 
     <!-- 4. PROGRAMME ------------------------------------------------------ -->
-    <section class="carte bloc revele" id="programme-section" aria-labelledby="t-programme">
+    <section class="carte bloc revele fleuri" id="programme-section" aria-labelledby="t-programme">
       <p class="pastille" data-t="programmeSurtitre"></p>
       <h2 class="titre titre--filet" id="t-programme" data-t="programme"></h2>
       <ol class="frise" id="programme"></ol>
@@ -138,7 +141,7 @@
     <div class="separateur revele" aria-hidden="true"><span></span></div>
 
     <!-- 7. CONFIRMATION DE PRÉSENCE ------------------------------------- -->
-    <section class="carte bloc carte--or revele" id="rsvp" aria-labelledby="t-rsvp">
+    <section class="carte bloc carte--or revele fleuri fleuri--gauche" id="rsvp" aria-labelledby="t-rsvp">
       <p class="pastille pastille--pleine" data-t="presenceSurtitre"></p>
       <h2 class="titre" id="t-rsvp" data-t="presenceTitre"></h2>
       <p class="texte"><span data-t="presenceSousTitre"></span> <strong id="date-limite"></strong>.</p>
@@ -188,7 +191,7 @@
     <div class="separateur revele" aria-hidden="true"><span></span></div>
 
     <!-- 9. LIVRE D'OR ---------------------------------------------------------- -->
-    <section class="carte bloc revele" id="livre" aria-labelledby="t-livre" hidden>
+    <section class="carte bloc revele fleuri" id="livre" aria-labelledby="t-livre" hidden>
       <p class="pastille" data-t="livreSurtitre"></p>
       <h2 class="titre" id="t-livre" data-t="livreTitre"></h2>
       <div class="messages" id="messages"></div>
@@ -197,6 +200,7 @@
 
   <!-- 10. PIED DE PAGE -------------------------------------------------------- -->
   <footer class="pied">
+    <img class="pied__bouquet" data-visuel="bouquetPetit" alt="">
     <img class="pied__photo" data-visuel="photoPied" alt="">
     <p class="pied__noms"><span data-nom-a></span> <em>&amp;</em> <span data-nom-b></span></p>
     <span class="pied__filet" aria-hidden="true"></span>

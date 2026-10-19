@@ -68,6 +68,7 @@ Chaque modèle est un dossier complet (`index.html`, `style.css`, `app.js`, `con
 Il suit les mêmes règles que `invitation/` : seul `config.js` change d'un client à l'autre, les visuels gardent les mêmes noms, un fichier absent disparaît proprement, et les réponses partent vers le **même** Google Apps Script (même tableau de bord).
 
 - **Union Sacrée** (`modeles/union-sacree/`) : enveloppe à sceau de cire, couverture avec pétales, compte à rebours, programme en frise, code vestimentaire, lieu (Google Maps + Waze), réponse, cagnotte, livre d'or, français / anglais (wolof dès que des textes relus sont ajoutés), barre de navigation, bouton « Noter la date » (fichier calendrier). Démo : `/modeles/union-sacree/`.
+  - Bouquet aquarelle : `visuels.bouquet` (grand, ouverture) et `visuels.bouquetPetit` (séparateurs, coins de la photo, cartes, pied de page). Fichiers WebP à fond transparent dans `assets/` (`bouquet.webp`, `bouquet-petit.webp`). Laisser `""` pour revenir aux petites fleurs dessinées.
   - Clés en plus du modèle de base : `dureeHeures`, `dateTexte` par langue, `dressCode`, `lieu`, `ligneRsvp`, `livreDor`, `textes.en`.
   - `choixPresence` : garder les identifiants `ceremonie`, `soiree` ou `les-deux` (le Google Sheet les vérifie).
   - Mode aperçu (utilisé par la page « Créer » du site) : `?direct=1&apercu=1&a=Awa&b=Moussa&date=2026-12-12&heure=16h00&lieu=…` remplace noms, date, heure et lieu à l'écran. Rien n'est envoyé ni enregistré avec les vraies réponses. Marche aussi sur `invitation/` (noms, date, heure).

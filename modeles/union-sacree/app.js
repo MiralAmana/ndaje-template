@@ -141,6 +141,15 @@
     img.src = src;
   });
 
+  /* ---------- Bouquet d'Aicha : décors en fond (séparateurs, coins, cartes) ----------
+     Absent dans config.js = on garde les petites fleurs dessinées. */
+  if (V.bouquetPetit || V.bouquet) {
+    const url = (s) => 'url("' + encodeURI(s).replace(/"/g, "%22") + '")';
+    document.documentElement.style.setProperty("--bouquet", url(V.bouquet || V.bouquetPetit));
+    document.documentElement.style.setProperty("--bouquet-petit", url(V.bouquetPetit || V.bouquet));
+    document.documentElement.classList.add("avec-bouquet");
+  }
+
   /* ---------- Textes (rappelé à chaque changement de langue) ---------- */
   function appliquerTextes() {
     document.documentElement.lang = langue === "wo" ? "wo" : langue;
@@ -491,6 +500,7 @@
     if (V.musique) audio.play().catch(() => {});
     if (!animations) { enveloppe.remove(); demarrer(); return; }
     enveloppe.classList.add("ouvre");
+    eclats($("#ouvrir"));
     setTimeout(demarrer, 1500);
     setTimeout(() => enveloppe.remove(), 2400);
   }

@@ -36,6 +36,10 @@ window.NDAJE = {
     monogramme: "",                          // ex. "assets/monogramme.svg" (sceau de l'enveloppe)
     photoCouverture: "assets/photo-couverture.jpg",
     photoPied: "assets/photo-1.jpg",         // petite photo en bas de page (facultative)
+    // Bouquet aquarelle (fond transparent) : ouverture, séparateurs, coins, cartes.
+    // Laisser "" pour revenir aux petites fleurs dessinées.
+    bouquet: "assets/bouquet.webp",          // grand (ouverture)
+    bouquetPetit: "assets/bouquet-petit.webp", // petit (décors)
     musique: ""                              // ex. "assets/musique.mp3" : le bouton musique apparaît
   },
 
