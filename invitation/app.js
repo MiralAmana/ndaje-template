@@ -11,7 +11,54 @@
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-  const cle = "ndaje:" + (C.nomsComplets || "evenement");
+  const APERCU_PARAMS = new URLSearchParams(location.search);
+
+  /* ---------- Mode aperçu (page « Créer » du site Ndajé) ----------
+     ?apercu=1&a=…&b=…&date=AAAA-MM-JJ&heure=10h00&lieu=… : les infos tapées par le
+     futur client remplacent celles de la fiche, pour lui montrer le vrai rendu.
+     Rien n'est envoyé ni mélangé avec les vraies réponses. Tout passe par textContent. */
+  const modeApercu = APERCU_PARAMS.has("apercu");
+  if (modeApercu) {
+    const court = (v, n) => String(v || "").trim().slice(0, n);
+    const ancienA = (C.noms || {}).a, ancienB = (C.noms || {}).b;
+    const a = court(APERCU_PARAMS.get("a"), 40), b = court(APERCU_PARAMS.get("b"), 40);
+    const remplacerNoms = (txt) => {
+      if (typeof txt !== "string" || !a) return txt;
+      let r = txt;
+      if (ancienA) r = r.split(ancienA).join(a);
+      if (ancienB && b) r = r.split(ancienB).join(b);
+      return r;
+    };
+    const remplacerObjet = (o) => {
+      if (!o || typeof o !== "object") return remplacerNoms(o);
+      const copie = {};
+      for (const k of Object.keys(o)) copie[k] = remplacerNoms(o[k]);
+      return copie;
+    };
+    if (a) {
+      (C.programme || []).forEach(e => { e.titre = remplacerObjet(e.titre); e.texte = remplacerObjet(e.texte); });
+      for (const l of Object.keys(C.textes || {})) {
+        for (const k of Object.keys(C.textes[l] || {})) C.textes[l][k] = remplacerNoms(C.textes[l][k]);
+      }
+      C.noms = { a: a, b: b };
+      C.nomsComplets = b ? a + " & " + b : a;
+    }
+    const d = APERCU_PARAMS.get("date") || "";
+    if (/^\d{4}-\d{2}-\d{2}$/.test(d)) {
+      const h = /(\d{1,2})\s*[h:]\s*(\d{2})?/i.exec(APERCU_PARAMS.get("heure") || "");
+      const hh = h ? String(Math.min(23, +h[1])).padStart(2, "0") : "10";
+      const mm = h && h[2] ? h[2] : "00";
+      C.date = d + "T" + hh + ":" + mm + ":00";
+      const jour = new Date(C.date);
+      const fmt = (loc, o) => { const s = jour.toLocaleDateString(loc, o); return s.charAt(0).toUpperCase() + s.slice(1); };
+      const long = { weekday: "long", day: "numeric", month: "long", year: "numeric" };
+      C.dateTexte = fmt("fr-FR", long);
+      C.dateLimiteRSVP = "";
+    }
+    C.rsvpUrl = "";   // jamais d'envoi depuis un aperçu
+    C.livreDor = [];  // un nouveau client n'a pas encore de messages
+  }
+  const cle = "ndaje:" + (modeApercu ? "apercu:" : "") + (C.nomsComplets || "evenement");
   const store = {
     get(k) { try { return JSON.parse(localStorage.getItem(cle + ":" + k)); } catch (e) { return null; } },
     set(k, v) { try { localStorage.setItem(cle + ":" + k, JSON.stringify(v)); } catch (e) { /* navigateur privé */ } }

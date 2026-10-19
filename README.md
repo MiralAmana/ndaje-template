@@ -70,6 +70,7 @@ Il suit les mêmes règles que `invitation/` : seul `config.js` change d'un clie
 - **Union Sacrée** (`modeles/union-sacree/`) : enveloppe à sceau de cire, couverture avec pétales, compte à rebours, programme en frise, code vestimentaire, lieu (Google Maps + Waze), réponse, cagnotte, livre d'or, français / anglais (wolof dès que des textes relus sont ajoutés), barre de navigation, bouton « Noter la date » (fichier calendrier). Démo : `/modeles/union-sacree/`.
   - Clés en plus du modèle de base : `dureeHeures`, `dateTexte` par langue, `dressCode`, `lieu`, `ligneRsvp`, `livreDor`, `textes.en`.
   - `choixPresence` : garder les identifiants `ceremonie`, `soiree` ou `les-deux` (le Google Sheet les vérifie).
+  - Mode aperçu (utilisé par la page « Créer » du site) : `?direct=1&apercu=1&a=Awa&b=Moussa&date=2026-12-12&heure=16h00&lieu=…` remplace noms, date, heure et lieu à l'écran. Rien n'est envoyé ni enregistré avec les vraies réponses. Marche aussi sur `invitation/` (noms, date, heure).
   - Pour un client : copier `modeles/union-sacree/` (au lieu de `invitation/`) dans `clients/<prenom-a>-<prenom-b>/`.
 
 ## Pour chaque nouveau client
