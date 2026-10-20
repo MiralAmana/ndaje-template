@@ -111,7 +111,7 @@
   const joursSouvenir = typeof C.souvenirApresJours === "number" ? C.souvenirApresJours : 30;
   const finFete = new Date(C.date).getTime();
   const modeSouvenir = new URLSearchParams(location.search).has("souvenir") ||
-    (!isNaN(finFete) && Date.now() > finFete + joursSouvenir * 86400000);
+    (!modeApercu && !isNaN(finFete) && Date.now() > finFete + joursSouvenir * 86400000); // en aperçu : toujours l'invitation complète
 
   /* ---------- Identité ---------- */
   const titresType = {

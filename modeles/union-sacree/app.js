@@ -116,7 +116,7 @@
   /* ---------- Page souvenir : X jours après la fête ---------- */
   const joursSouvenir = typeof C.souvenirApresJours === "number" ? C.souvenirApresJours : 30;
   const debut = new Date(C.date).getTime();
-  const modeSouvenir = params.has("souvenir") || (!isNaN(debut) && Date.now() > debut + joursSouvenir * 864e5);
+  const modeSouvenir = params.has("souvenir") || (!modeApercu && !isNaN(debut) && Date.now() > debut + joursSouvenir * 864e5); // en aperçu : toujours l'invitation complète
 
   /* ---------- Identité ---------- */
   const noms = C.noms || { a: "" };
