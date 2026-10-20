@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Invitation — Ndajé</title>
+  <meta name="theme-color" content="#8E5A50">
+  <!-- Aperçu WhatsApp : À CHANGER POUR CHAQUE CLIENT (adresse complète https://…, WhatsApp ne lit pas le JavaScript) -->
+  <meta property="og:title" content="Vous êtes invité·e">
+  <meta property="og:description" content="Ouvrez l'invitation pour découvrir le programme et confirmer votre présence.">
+  <meta property="og:url" content="https://ndaje-template.vercel.app/modeles/dentelle-rosee/">
+  <meta property="og:image" content="https://ndaje-template.vercel.app/modeles/dentelle-rosee/assets/apercu-whatsapp.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 0. OUVERTURE : DEUX VOLETS EN DENTELLE (affichée par le moteur ; ?direct=1 la saute) -->
+  <div id="enveloppe" class="enveloppe portes" role="dialog" aria-modal="true" aria-labelledby="env-titre" hidden>
+    <div class="porte porte--g" aria-hidden="true"><img data-visuel="volet" alt=""></div>
+    <div class="porte porte--d" aria-hidden="true"><img data-visuel="volet" alt=""></div>
+    <div class="portes__centre">
+      <p class="sr" id="env-titre" data-t="vousEtesInvite"></p>
+      <div class="sceau-ovale" aria-hidden="true">
+        <svg viewBox="0 0 60 84" class="sceau-ovale__brin">
+          <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <path d="M30 74 C 30 56, 31 38, 30 14"></path>
+            <path d="M30 60 C 22 54, 18 46, 17 38"></path><path d="M30 54 C 38 48, 42 40, 43 32"></path>
+            <path d="M30 40 C 24 34, 22 28, 22 22"></path><path d="M30 34 C 36 28, 38 22, 38 17"></path>
+          </g>
+          <g fill="currentColor">
+            <ellipse cx="17" cy="37" rx="3.2" ry="5" transform="rotate(-25 17 37)"></ellipse>
+            <ellipse cx="43" cy="31" rx="3.2" ry="5" transform="rotate(25 43 31)"></ellipse>
+            <ellipse cx="22" cy="21" rx="2.8" ry="4.4" transform="rotate(-20 22 21)"></ellipse>
+            <ellipse cx="38" cy="16" rx="2.8" ry="4.4" transform="rotate(20 38 16)"></ellipse>
+            <ellipse cx="30" cy="12" rx="2.6" ry="4.2"></ellipse>
+            <circle cx="24" cy="48" r="1.8"></circle><circle cx="37" cy="44" r="1.8"></circle><circle cx="27" cy="28" r="1.5"></circle>
+          </g>
+        </svg>
+      </div>
+      <p class="portes__noms" data-noms-courts></p>
+      <button id="ouvrir" class="portes__bouton" type="button" data-t="ouvrir"></button>
+    </div>
+  </div>
+
+  <!-- 1. BANDEAU + EN-TÊTE --------------------------------------------- -->
+  <div class="bandeau" role="note">
+    <svg class="ic" aria-hidden="true"><use href="#i-coeur"/></svg>
+    <span data-t="bandeau"></span>
+    <svg class="ic" aria-hidden="true"><use href="#i-coeur"/></svg>
+  </div>
+  <header class="entete">
+    <div class="marque"><strong>NDAJÉ</strong><span data-t="marque"></span></div>
+    <div class="entete__actions">
+      <div class="langues" id="langues" role="group" aria-label="Langue"></div>
+      <button class="rond" id="musique-btn" type="button" hidden aria-pressed="false">
+        <svg class="ic" aria-hidden="true"><use href="#i-musique"/></svg>
+        <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="sr" data-t="musique"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <!-- 2. COUVERTURE --------------------------------------------------- -->
+    <section class="couverture" id="accueil" aria-labelledby="noms">
+      <div class="petales" aria-hidden="true"></div>
+      <p class="couverture__surtitre anim" data-t="surtitre"></p>
+      <h1 class="couverture__noms anim" id="noms"><span data-nom-a></span> <em>&amp;</em> <span data-nom-b></span></h1>
+      <p class="couverture__devise anim" data-t="devise"></p>
+      <figure class="couverture__photo anim">
+        <img data-visuel="photoCouverture" alt="">
+        <div class="couverture__vide" aria-hidden="true"><span data-initiales></span></div>
+        <figcaption class="badge-officiel"><svg class="ic" aria-hidden="true"><use href="#i-sceau"/></svg><span data-t="fairePart"></span></figcaption>
+      </figure>
+      <div class="couverture__actions anim">
+        <a class="bouton bouton--plein" href="#rsvp"><svg class="ic" aria-hidden="true"><use href="#i-enveloppe"/></svg><span data-t="confirmer"></span></a>
+        <button class="bouton bouton--clair" type="button" id="noter-date"><svg class="ic" aria-hidden="true"><use href="#i-calendrier"/></svg><span data-t="noterDate"></span></button>
+        <button class="bouton bouton--rond" type="button" data-partager><svg class="ic ic--wa" aria-hidden="true"><use href="#i-whatsapp"/></svg><span class="sr" data-t="partager"></span></button>
+      </div>
+    </section>
+
+    <div class="separateur" aria-hidden="true"><span></span></div>
+
+    <!-- PAGE SOUVENIR (X jours après la fête) ------------------------------ -->
+    <section class="carte bloc souvenir fleuri" id="souvenir" hidden>
+      <h2 class="titre" data-t="souvenirTitre"></h2>
+      <p class="texte" data-t="souvenirTexte"></p>
+    </section>
+
+    <!-- 3. COMPTE À REBOURS -------------------------------------------- -->
+    <section class="carte bloc rebours revele" id="rebours" aria-labelledby="t-rebours">
+      <p class="surtitre-or" id="t-rebours" data-t="reboursTitre"></p>
+      <h2 class="titre" data-date-texte></h2>
+      <div class="rebours__grille" role="timer" aria-live="off">
+        <div class="case"><strong id="cr-j">00</strong><span data-t="jours"></span></div>
+        <div class="case"><strong id="cr-h">00</strong><span data-t="heures"></span></div>
+        <div class="case"><strong id="cr-m">00</strong><span data-t="minutes"></span></div>
+        <div class="case case--rose"><strong id="cr-s">00</strong><span data-t="secondes"></span></div>
+      </div>
+      <p class="citation" data-t="reboursCitation"></p>
+    </section>
+
+    <div class="separateur revele" aria-hidden="true"><span></span></div>
+
+    <!-- 4. PROGRAMME ------------------------------------------------------ -->
+    <section class="carte bloc revele fleuri" id="programme-section" aria-labelledby="t-programme">
+      <p class="pastille" data-t="programmeSurtitre"></p>
+      <h2 class="titre titre--filet" id="t-programme" data-t="programme"></h2>
+      <ol class="frise" id="programme"></ol>
+      <p class="note-bas"><svg class="ic" aria-hidden="true"><use href="#i-horloge"/></svg><span data-t="programmeNote"></span></p>
+    </section>
+
+    <div class="separateur revele" aria-hidden="true"><span></span></div>
+
+    <!-- 5. CODE VESTIMENTAIRE --------------------------------------------- -->
+    <section class="carte bloc revele" id="dress" aria-labelledby="t-dress" hidden>
+      <p class="pastille" data-t="dressSurtitre"></p>
+      <h2 class="titre" id="t-dress" data-t="dressTitre"></h2>
+      <p class="texte" data-t="dressTexte"></p>
+      <ul class="palette" id="palette"></ul>
+      <div class="encadre" id="dress-style">
+        <p class="encadre__titre"><svg class="ic" aria-hidden="true"><use href="#i-baguette"/></svg><span data-t="styleRecommande"></span></p>
+        <p id="dress-texte"></p>
+        <p class="interdit" id="dress-interdit"><svg class="ic" aria-hidden="true"><use href="#i-interdit"/></svg><span></span></p>
+      </div>
+    </section>
+
+    <div class="separateur revele" aria-hidden="true"><span></span></div>
+
+    <!-- 6. LIEU ------------------------------------------------------------- -->
+    <section class="carte bloc revele" id="lieu" aria-labelledby="t-lieu" hidden>
+      <p class="pastille" data-t="lieuSurtitre"></p>
+      <h2 class="titre" id="t-lieu" data-t="lieuTitre"></h2>
+      <div class="plan">
+        <span class="plan__epingle" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-epingle"/></svg></span>
+        <p class="plan__nom" id="lieu-nom"></p>
+        <p class="plan__adresse" id="lieu-adresse"></p>
+      </div>
+      <div class="plan__boutons">
+        <a class="bouton bouton--clair" id="lien-maps" target="_blank" rel="noopener"><svg class="ic ic--maps" aria-hidden="true"><use href="#i-epingle"/></svg><span data-t="ouvrirMaps"></span></a>
+        <a class="bouton bouton--clair" id="lien-waze" target="_blank" rel="noopener"><svg class="ic ic--waze" aria-hidden="true"><use href="#i-voiture"/></svg><span data-t="ouvrirWaze"></span></a>
+      </div>
+      <div class="encadre encadre--info" id="lieu-info-bloc">
+        <span class="encadre__p" aria-hidden="true">P</span>
+        <p><strong data-t="stationnement"></strong> <span id="lieu-info"></span></p>
+      </div>
+    </section>
+
+    <div class="separateur revele" aria-hidden="true"><span></span></div>
+
+    <!-- 7. CONFIRMATION DE PRÉSENCE ------------------------------------- -->
+    <section class="carte bloc carte--or revele fleuri fleuri--gauche" id="rsvp" aria-labelledby="t-rsvp">
+      <p class="pastille pastille--pleine" data-t="presenceSurtitre"></p>
+      <h2 class="titre" id="t-rsvp" data-t="presenceTitre"></h2>
+      <p class="texte"><span data-t="presenceSousTitre"></span> <strong id="date-limite"></strong>.</p>
+      <a class="ligne-rsvp" id="ligne-rsvp" hidden>
+        <span data-t="ligneRsvp"></span>
+        <strong><svg class="ic" aria-hidden="true"><use href="#i-telephone"/></svg><span id="ligne-rsvp-num"></span></strong>
+      </a>
+      <form id="formulaire" class="formulaire" novalidate>
+        <label class="champ"><span><span data-t="nom"></span> *</span>
+          <input name="nom" autocomplete="name" required maxlength="80" data-ph="nomExemple">
+        </label>
+        <label class="champ"><span><span data-t="telephone"></span> *</span>
+          <input name="telephone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="25" data-ph="telephoneExemple">
+        </label>
+        <fieldset class="champ">
+          <legend><span data-t="serezVous"></span> *</legend>
+          <div class="choix" id="choix"></div>
+        </fieldset>
+        <label class="champ" id="champ-nombre"><span data-t="nombre"></span>
+          <select name="personnes" id="personnes"></select>
+        </label>
+        <label class="champ"><span data-t="message"></span>
+          <textarea name="message" rows="3" maxlength="400" data-ph="messageExemple"></textarea>
+        </label>
+        <p class="erreur" id="erreur" role="alert" hidden></p>
+        <button class="bouton bouton--plein bouton--large" type="submit"><svg class="ic" aria-hidden="true"><use href="#i-coche"/></svg><span data-t="envoyer"></span></button>
+      </form>
+      <div class="merci" id="merci" role="status" hidden>
+        <span class="merci__icone" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-coeur"/></svg></span>
+        <p id="merci-texte"></p>
+      </div>
+    </section>
+
+    <div class="separateur revele" aria-hidden="true"><span></span></div>
+
+    <!-- 8. CAGNOTTE ---------------------------------------------------------- -->
+    <section class="carte bloc revele" id="cagnotte" aria-labelledby="t-cagnotte" hidden>
+      <p class="pastille" data-t="cagnotteSurtitre"></p>
+      <h2 class="titre" id="t-cagnotte" data-t="cagnotteTitre"></h2>
+      <p class="texte" data-t="cagnotteTexte"></p>
+      <div class="moyens" id="moyens"></div>
+      <p class="petit" ><span data-t="auNomDe"></span> <strong id="titulaire"></strong></p>
+      <p class="petit cagnotte-etranger" data-t="cagnotteEtranger"></p>
+      <p class="citation" data-t="cagnotteNote"></p>
+    </section>
+
+    <div class="separateur revele" aria-hidden="true"><span></span></div>
+
+    <!-- 9. LIVRE D'OR ---------------------------------------------------------- -->
+    <section class="carte bloc revele fleuri" id="livre" aria-labelledby="t-livre" hidden>
+      <p class="pastille" data-t="livreSurtitre"></p>
+      <h2 class="titre" id="t-livre" data-t="livreTitre"></h2>
+      <div class="messages" id="messages"></div>
+    </section>
+  </main>
+
+  <!-- 10. PIED DE PAGE -------------------------------------------------------- -->
+  <footer class="pied">
+    <img class="pied__bouquet" data-visuel="bouquetPetit" alt="">
+    <img class="pied__photo" data-visuel="photoPied" alt="">
+    <p class="pied__noms"><span data-nom-a></span> <em>&amp;</em> <span data-nom-b></span></p>
+    <span class="pied__filet" aria-hidden="true"></span>
+    <p class="pied__signature" data-t="signature"></p>
+    <p class="pied__maison" data-t="maison"></p>
+    <p class="pied__droits">© <span id="annee"></span> Ndajé. <span data-t="droits"></span></p>
+  </footer>
+
+  <!-- 11. BARRE DU BAS ------------------------------------------------------- -->
+  <nav class="barre" aria-label="Navigation de l'invitation">
+    <a href="#accueil" data-cible="accueil"><svg class="ic" aria-hidden="true"><use href="#i-coeur"/></svg><span data-t="navAccueil"></span></a>
+    <a href="#programme-section" data-cible="programme-section"><svg class="ic" aria-hidden="true"><use href="#i-horloge"/></svg><span data-t="navProgramme"></span></a>
+    <a href="#rsvp" data-cible="rsvp" class="barre__rsvp"><svg class="ic" aria-hidden="true"><use href="#i-envoi"/></svg><span data-t="navRsvp"></span></a>
+    <a href="#lieu" data-cible="lieu"><svg class="ic" aria-hidden="true"><use href="#i-epingle"/></svg><span data-t="navAcces"></span></a>
+    <button type="button" data-partager><svg class="ic ic--wa" aria-hidden="true"><use href="#i-whatsapp"/></svg><span data-t="navPartager"></span></button>
+  </nav>
+  <div class="avis" id="avis" role="status" hidden></div>
+  <audio id="musique" loop preload="none"></audio>
+
+  <!-- Icônes (génériques, réutilisées partout) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-coeur" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.4C1 8.3 3 5 6.4 5c2 0 3.3 1 4.1 2.2h3C14.3 6 15.6 5 17.6 5 21 5 23 8.3 21.6 11.6 19.5 16.4 12 21 12 21z"/></symbol>
+    <symbol id="i-musique" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm11-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></symbol>
+    <symbol id="i-sceau" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a4 4 0 0 1 2.5 7.1V12h3a2 2 0 0 1 2 2v2H4.5v-2a2 2 0 0 1 2-2h3V9.1A4 4 0 0 1 12 2zM4 18h16v2.5H4z"/></symbol>
+    <symbol id="i-enveloppe" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 7l9 6 9-6M3 7v11h18V7M3 7l3-3h12l3 3"/></symbol>
+    <symbol id="i-calendrier" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4M12 13v4M10 15h4"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.2A9.7 9.7 0 0 0 3.6 16.8L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.6c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.8zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.6 2.6 0 0 0-.8 1.9 4.5 4.5 0 0 0 1 2.4 10.3 10.3 0 0 0 4 3.5c1.5.6 2 .7 2.8.6.4-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2z"/></symbol>
+    <symbol id="i-horloge" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2"/></symbol>
+    <symbol id="i-baguette" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 20L15 9M17 3v3M15.5 4.5h3M20 9v2M19 10h2M10 3l.7 1.6L12 5l-1.3.6L10 7l-.7-1.4L8 5l1.3-.4z"/></symbol>
+    <symbol id="i-interdit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM5.6 5.6l12.8 12.8"/></symbol>
+    <symbol id="i-epingle" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></symbol>
+    <symbol id="i-voiture" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 16v2h3v-2M16 16v2h3v-2M4 16h16v-4l-2-5H6l-2 5zM4 12h16M7.5 14h.01M16.5 14h.01"/></symbol>
+    <symbol id="i-telephone" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></symbol>
+    <symbol id="i-coche" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-envoi" viewBox="0 0 24 24"><path fill="currentColor" d="M3 11.5L21 3l-6.5 18-3.2-7.3z"/></symbol>
+    <symbol id="i-copier" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M8 8h11v13H8zM5 16H4V3h11v1"/></symbol>
+    <symbol id="i-wave" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 9c3-2 6 2 9 0s6 2 9 0M3 15c3-2 6 2 9 0s6 2 9 0"/></symbol>
+    <symbol id="i-billet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3 7h18v10H3zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 10v4M18 10v4"/></symbol>
+    <symbol id="i-eglise" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 2v4M10 4h4M7 21V11l5-5 5 5v10M4 21h16M10 21v-4h4v4"/></symbol>
+    <symbol id="i-mosquee" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.5 2 4 3.6 4 5.5V10H8V8.5C8 6.6 9.5 5 12 3zM5 21V12h14v9M9 21v-4a3 3 0 0 1 6 0v4M4 21h16"/></symbol>
+    <symbol id="i-mairie" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M4 10h16M12 3l9 7H3l9-7zM6 10v11M10 10v11M14 10v11M18 10v11"/></symbol>
+    <symbol id="i-maison" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-7 9 7M5 9.5V21h14V9.5M10 21v-6h4v6"/></symbol>
+    <symbol id="i-photo" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M3 7h4l2-3h6l2 3h4v13H3zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></symbol>
+    <symbol id="i-repas" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M7 3v8a2 2 0 0 0 4 0V3M9 11v10M16 3c-1.5 1-2 3-2 6h4V3M17 9v12"/></symbol>
+    <symbol id="i-soiree" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm11-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></symbol>
+  </svg>
+
+  <script src="config.js"></script>
+  <script src="../../moteur/moteur.js"></script>
+</body>
+</html>

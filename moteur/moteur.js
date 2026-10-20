@@ -1,5 +1,8 @@
 /* =========================================================
-   NDAJÉ — MODÈLE « UNION SACRÉE » — MOTEUR
+   NDAJÉ — MOTEUR COMMUN DES MODÈLES (modeles/*)
+   Un seul moteur pour tous les modèles : chaque modèle n'a que son
+   index.html (mêmes identifiants), son style.css, sa fiche config.js et
+   ses visuels. Chargé par <script src="../../moteur/moteur.js">.
    Lit config.js et construit l'invitation. Pas besoin de le modifier
    pour un nouveau client. Aucune donnée n'est insérée avec innerHTML.
    Les réponses partent au même format que le modèle de base

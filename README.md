@@ -15,8 +15,11 @@ ndaje-template/
 │   ├── app.js           moteur : lit config.js et construit la page (ne pas modifier)
 │   ├── config.js        ★ FICHE CLIENT, à remplir pour chaque commande
 │   └── assets/          ★ VISUELS D'AICHA
+├── moteur/
+│   └── moteur.js        moteur commun de tous les modèles de modeles/ (ne pas copier, ne pas modifier par client)
 ├── modeles/
-│   └── union-sacree/    ★ modèle d'Aicha « Union Sacrée » (bordeaux, rose, or) : même principe, sa propre fiche config.js
+│   ├── union-sacree/    ★ « Union Sacrée » (mariage ; bordeaux, rose, or)
+│   └── dentelle-rosee/  ★ « Dentelle Rosée » (mariage ; rose poudré, ouverture à volets en dentelle)
 ├── dashboard/
 │   └── index.html       tableau de bord des mariés (confirmations en direct)
 └── apps-script/
@@ -64,7 +67,7 @@ Pour compresser les photos gratuitement : [squoosh.app](https://squoosh.app).
 
 ## Les modèles d'Aicha (`modeles/`)
 
-Chaque modèle est un dossier complet (`index.html`, `style.css`, `app.js`, `config.js`, `assets/`), construit d'après une maquette d'Aicha.
+Chaque modèle est un dossier (`index.html`, `style.css`, `config.js`, `assets/`) qui utilise le **moteur commun** `moteur/moteur.js` (chargé par `../../moteur/moteur.js`). Un bug corrigé dans le moteur l'est pour tous les modèles.
 Il suit les mêmes règles que `invitation/` : seul `config.js` change d'un client à l'autre, les visuels gardent les mêmes noms, un fichier absent disparaît proprement, et les réponses partent vers le **même** Google Apps Script (même tableau de bord).
 
 - **Union Sacrée** (`modeles/union-sacree/`) : enveloppe à sceau de cire, couverture avec pétales, compte à rebours, programme en frise, code vestimentaire, lieu (Google Maps + Waze), réponse, cagnotte, livre d'or, français / anglais (wolof dès que des textes relus sont ajoutés), barre de navigation, bouton « Noter la date » (fichier calendrier). Démo : `/modeles/union-sacree/`.
@@ -72,7 +75,8 @@ Il suit les mêmes règles que `invitation/` : seul `config.js` change d'un clie
   - Clés en plus du modèle de base : `dureeHeures`, `dateTexte` par langue, `dressCode`, `lieu`, `ligneRsvp`, `livreDor`, `textes.en`.
   - `choixPresence` : garder les identifiants `ceremonie`, `soiree` ou `les-deux` (le Google Sheet les vérifie).
   - Mode aperçu (utilisé par la page « Créer » du site) : `?direct=1&apercu=1&a=Awa&b=Moussa&date=2026-12-12&heure=16h00&lieu=…` remplace noms, date, heure et lieu à l'écran. Rien n'est envoyé ni enregistré avec les vraies réponses. Marche aussi sur `invitation/` (noms, date, heure).
-  - Pour un client : copier `modeles/union-sacree/` (au lieu de `invitation/`) dans `clients/<prenom-a>-<prenom-b>/`.
+  - Pour un client : copier le dossier du modèle (ex. `modeles/union-sacree/`) dans `clients/<prenom-a>-<prenom-b>/` : même profondeur, donc `../../moteur/moteur.js` fonctionne toujours.
+- **Dentelle Rosée** (`modeles/dentelle-rosee/`) : ouverture à deux volets en dentelle en relief (`visuels.volet` = `assets/dentelle-volet.svg`, création Ndajé), sceau ovale, intérieur rose poudré et ivoire. Mêmes sections et mêmes clés que Union Sacrée. Démo : `/modeles/dentelle-rosee/`.
 
 ## Pour chaque nouveau client
 
